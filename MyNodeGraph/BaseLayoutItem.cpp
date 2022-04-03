@@ -1,11 +1,11 @@
 ﻿#include "BaseLayoutItem.h"
-#include "BaseItem.h"
 #include <QWidget>
+#include <QDebug>
 
-BaseLayoutItem::BaseLayoutItem(QGraphicsLayoutItem *parent, bool isLayout) : QGraphicsLayoutItem(parent, isLayout)
+BaseLayoutItem::BaseLayoutItem(QGraphicsLayoutItem *parent, bool isLayout) : QGraphicsLayoutItem(parent, isLayout),
+    mItemSize(250, 250)
 {
-    BaseItem *b = new BaseItem();
-    setGraphicsItem(b);
+    setGraphicsItem(this);
 }
 
 BaseLayoutItem::~BaseLayoutItem()
@@ -13,22 +13,44 @@ BaseLayoutItem::~BaseLayoutItem()
 
 }
 
+QRectF BaseLayoutItem::boundingRect() const
+{
+    return  QRectF(0, 0, mItemSize.width(), mItemSize.height());
+}
+
+void BaseLayoutItem::setGeometry(const QRectF &rect)
+{
+    prepareGeometryChange();
+    QGraphicsLayoutItem::setGeometry(rect);
+    setPos(rect.topLeft());
+
+    QSizeF effectiveSize = rect.size().expandedTo(effectiveSizeHint(Qt::MinimumSize))
+                                .boundedTo(effectiveSizeHint(Qt::MaximumSize));
+    mItemSize = QRectF(rect.topLeft(), effectiveSize).size();
+}
+
+void BaseLayoutItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(painter)
+    Q_UNUSED(option)
+    Q_UNUSED(widget)
+}
+
 QSizeF BaseLayoutItem::sizeHint(Qt::SizeHint which, const QSizeF &constraint) const
 {
-    Q_UNUSED(constraint);
-    QSizeF sh;
-    switch (which) {
+//    auto p = parentItem()->toGraphicsObject();
+//    qDebug()<<p->metaObject()->className()<<which;
+
+    switch ( which )
+    {
         case Qt::MinimumSize:
-            sh = QSizeF(0, 0);
-            break;
+        return QSizeF(10,10);
         case Qt::PreferredSize:
-            sh = QSizeF(50, 50);
-            break;
+            return this->boundingRect().size();
         case Qt::MaximumSize:
-            sh = QSizeF(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
-            break;
+            return QSizeF(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
         default:
-            break;
+            return this->boundingRect().size();
     }
-    return sh;
+    return constraint;
 }

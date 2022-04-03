@@ -18,6 +18,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     BaseItem.cpp \
     BaseLayoutItem.cpp \
+    GraphicsPixmapItem.cpp \
+    GraphicsPixmapTitleItem.cpp \
+    GraphicsProxyWidget.cpp \
+    GraphicsTextAndPixmapItem.cpp \
     MyGroupBox.cpp \
     MyScene.cpp \
     MySlot.cpp \
@@ -29,6 +33,10 @@ SOURCES += \
 HEADERS += \
     BaseItem.h \
     BaseLayoutItem.h \
+    GraphicsPixmapItem.h \
+    GraphicsPixmapTitleItem.h \
+    GraphicsProxyWidget.h \
+    GraphicsTextAndPixmapItem.h \
     MyGroupBox.h \
     MyScene.h \
     MySlot.h \

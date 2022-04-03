@@ -8,7 +8,6 @@ MySlot::MySlot(QGraphicsItem *parent) : QGraphicsRectItem(parent)
 
 QPointF MySlot::GetAnchor()
 {
-    qDebug() << boundingRect().center();
     QPointF endPos = mapToScene(boundingRect().center());
     return endPos;
 }
@@ -20,6 +19,6 @@ QRectF MySlot::boundingRect() const
 
 void MySlot::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setRenderHint(QPainter::Antialiasing);
-    painter->drawRoundedRect(boundingRect(), 5, 5);
+//    painter->setRenderHint(QPainter::Antialiasing);
+//    painter->drawRoundedRect(boundingRect(), 5, 5);
 }

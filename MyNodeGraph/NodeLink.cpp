@@ -13,20 +13,20 @@ NodeLink::~NodeLink()
 
 void NodeLink::updateShape()
 {
-    const QPointF& beginPos = startSlot->GetAnchor();
+    QPointF beginPos = startSlot->GetAnchor();
     QPointF endPos = endSlot->GetAnchor();
     QPainterPath path;
     path.moveTo(beginPos);
-    qreal dx = endPos.x() - beginPos.x();
-    if (dx < 0)
+    qreal dy = endPos.y() - beginPos.y();
+    if (dy < 0)
     {
-        dx = -dx;
+        dy = -dy;
     }
-    if (dx > 60)
+    if (dy > 60)
     {
-        dx = 60;
+        dy = 60;
     }
-    QPointF offset(dx, 0.0f);
+    QPointF offset(0.0f, dy);
     path.cubicTo(beginPos + offset, endPos - offset, endPos);
     setPath(path);
     update();

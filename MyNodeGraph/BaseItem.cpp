@@ -16,13 +16,6 @@ BaseItem::BaseItem(Direction dir, QGraphicsItem *parent) : QGraphicsItem(parent)
     QPixmap p(":/1.jpeg");
     p = p.scaledToWidth(100);
     pi->setPixmap(p);
-    //    QWidget *w = new QWidget();
-//    QVBoxLayout *l = new QVBoxLayout();
-//    w->setLayout(l);
-//    QPushButton *b = new QPushButton("xxx");
-//    l->addWidget(b);
-//    gw = new QGraphicsProxyWidget(this);
-//    gw->setWidget(w);
 }
 
 BaseItem::~BaseItem()

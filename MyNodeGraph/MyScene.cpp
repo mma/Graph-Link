@@ -1,5 +1,6 @@
 ﻿#include "MyScene.h"
 #include <QPainter>
+#include <QDebug>
 
 MyScene::MyScene(QObject *parent) : QGraphicsScene(parent)
 {
@@ -23,7 +24,7 @@ void MyScene::Update()
 
 void MyScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
-    const int gridSize = 25;
+    const int gridSize = 50;
 
     const qreal left = int(rect.left()) - (int(rect.left()) % gridSize);
     const qreal top = int(rect.top()) - (int(rect.top()) % gridSize);
@@ -39,5 +40,5 @@ void MyScene::drawBackground(QPainter *painter, const QRectF &rect)
 
     painter->setPen(QColor(Qt::lightGray).lighter(110));
     painter->drawLines(lines.data(), lines.size());
-    painter->setPen(Qt::black);
+//    painter->setPen(Qt::black);
 }
