@@ -28,7 +28,12 @@ GraphicsPixmapItem::~GraphicsPixmapItem()
 
 QRectF GraphicsPixmapItem::boundingRect() const
 {
+//    return BaseLayoutItem::boundingRect();
+    if (isVisible()) {
     return QRectF(0, 0, mItem->boundingRect().width(), mItem->boundingRect().height());
+    } else {
+        return QRectF();
+    }
 }
 
 void GraphicsPixmapItem::setGeometry(const QRectF &rect)

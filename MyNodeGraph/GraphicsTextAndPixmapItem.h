@@ -3,13 +3,14 @@
 #include "GraphicsProxyWidget.h"
 #include <QGraphicsLinearLayout>
 #include "GraphicsPixmapItem.h"
+#include "BaseGraphicsWidget.h"
 #include "GraphicsPixmapTitleItem.h"
 
 /// 采用QGraphicsLayout布局，但是只能是QGraphicsLayoutItem的子类
 /// 所以先用BaseLayoutItem包装一下QGraphicsPixmapItem和QGraphicsSimpleTextItem
 /// 然后再在QGraphicsWidget里面组装一下
 
-class GraphicsTextAndPixmapItem : public GraphicsProxyWidget
+class GraphicsTextAndPixmapItem : public BaseGraphicsWidget
 {
     Q_OBJECT
 public:
@@ -17,8 +18,13 @@ public:
     ~GraphicsTextAndPixmapItem();
     MySlot *GetInAnchor() { return mTItem->GetAnchor(); }
     MySlot *GetOutAnchor() { return mItem->GetSlot(); }
+    virtual QRectF boundingRect()const override;
+//    virtual void setGeometry(const QRectF &rect)override;
+
 protected:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value)override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
     /// 这个layout不能手动delete，因为在setLayout后，这个layout的控制权就交给了QGraphicsWidget，QGRaphicsWidget会在析构时
@@ -26,6 +32,10 @@ private:
     QGraphicsLinearLayout *mLayout;
     std::shared_ptr<GraphicsPixmapTitleItem> mTItem;
     std::shared_ptr<GraphicsPixmapItem> mItem;
+
+signals:
+    void Clicked();
+    void Clicked1();
 };
 
 #endif // GRAPHICSTEXTANDPIXMAPITEM_H

@@ -1,4 +1,4 @@
-﻿#include "GraphicsProxyWidget.h"
+﻿#include "graphicsproxywidget.h"
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsScene>
 #include <QPainter>
@@ -8,7 +8,7 @@
 const qreal g_cResizePos[] = {9, 6, 3};
 
 GraphicsProxyWidget::GraphicsProxyWidget(QGraphicsItem *parent)
-    :QGraphicsProxyWidget(parent), isResizing(false)
+    :QGraphicsProxyWidget(parent)
 {
     setAcceptHoverEvents(true);
     setFlag(QGraphicsItem::ItemIsMovable);
@@ -100,34 +100,34 @@ void GraphicsProxyWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 QVariant GraphicsProxyWidget::itemChange(GraphicsItemChange change, const QVariant &value)
 {
-//    if ((change == ItemPositionChange || change == ItemPositionHasChanged) && scene()) // 控件发生移动
-//    {
-//        QPointF newPos = value.toPointF();
-//        QRectF rect(0, 0, scene()->width(), scene()->height());
-//        if (!rect.contains(newPos))//左上角
-//        {
-//            newPos.setX(qMin(rect.width(), qMax(newPos.x(), 0.0)));
-//            newPos.setY(qMin(rect.height(), qMax(newPos.y(), 0.0)));
-//            return newPos;
-//        }
+    if ((change == ItemPositionChange || change == ItemPositionHasChanged) && scene()) // 控件发生移动
+    {
+        QPointF newPos = value.toPointF();
+        QRectF rect(0, 0, scene()->width(), scene()->height());
+        if (!rect.contains(newPos))//左上角
+        {
+            newPos.setX(qMin(rect.width(), qMax(newPos.x(), 0.0)));
+            newPos.setY(qMin(rect.height(), qMax(newPos.y(), 0.0)));
+            return newPos;
+        }
 
-//        QRectF thisRectF = boundingRect();
-//        QPointF nowPos = QPointF(newPos.x() + thisRectF.width(),newPos.y());
-//        if(!rect.contains(nowPos))//右上角
-//        {
-//            newPos.setX(rect.width() - thisRectF.width());
-//            this->setPos(newPos);
-//            return newPos;
-//        }
+        QRectF thisRectF = boundingRect();
+        QPointF nowPos = QPointF(newPos.x() + thisRectF.width(),newPos.y());
+        if(!rect.contains(nowPos))//右上角
+        {
+            newPos.setX(rect.width() - thisRectF.width());
+            this->setPos(newPos);
+            return newPos;
+        }
 
-//        nowPos = QPointF(newPos.x(),newPos.y() + thisRectF.height());
-//        if(!rect.contains(nowPos))//左下角
-//        {
-//            newPos.setY(rect.height() - thisRectF.height());
-//            this->setPos(newPos);
-//            return newPos;
-//        }
-//    }
+        nowPos = QPointF(newPos.x(),newPos.y() + thisRectF.height());
+        if(!rect.contains(nowPos))//左下角
+        {
+            newPos.setY(rect.height() - thisRectF.height());
+            this->setPos(newPos);
+            return newPos;
+        }
+    }
     return QGraphicsItem::itemChange(change, value);
 }
 
@@ -141,14 +141,14 @@ void GraphicsProxyWidget::paint(QPainter *painter, const QStyleOptionGraphicsIte
     QRectF thisRectF = boundingRect();
     painter->fillRect(option->rect,QBrush(QColor("#e0e0e0")));
 
-//    if(option->state & QStyle::State_Selected)
-//    {
-//        qreal w = thisRectF.width();
-//        qreal h = thisRectF.height();
-//        painter->setPen(Qt::red);
-//        for (int i = 0; i < 3; ++i)//三角形
-//            painter->drawLine(static_cast<int>(w - g_cResizePos[i]) , static_cast<int>(h), static_cast<int>(w), static_cast<int>(h - g_cResizePos[i]));
-//    }
+    if(option->state & QStyle::State_Selected)
+    {
+        qreal w = thisRectF.width();
+        qreal h = thisRectF.height();
+        painter->setPen(Qt::red);
+        for (int i = 0; i < 3; ++i)//三角形
+            painter->drawLine(static_cast<int>(w - g_cResizePos[i]) , static_cast<int>(h), static_cast<int>(w), static_cast<int>(h - g_cResizePos[i]));
+    }
 
     painter->restore();
     QGraphicsProxyWidget::paint(painter,option,widget);
@@ -158,7 +158,7 @@ void GraphicsProxyWidget::hoverMoveEvent(QGraphicsSceneHoverEvent* event)
 {
     if (isResizing || (IsInResizeArea(event->pos()) && isSelected()))
     {
-//        setCursor(Qt::SizeFDiagCursor);
+        setCursor(Qt::SizeFDiagCursor);
         QGraphicsObject::hoverMoveEvent(event);
     }
     else
@@ -223,4 +223,11 @@ void GraphicsProxyWidget::setCenterLayout(QGraphicsLayout * layout)
     adjustSize();
     itemSize = this->sizeHint(Qt::PreferredSize);
     itemMinSize = this->sizeHint(Qt::MinimumDescent);
+}
+
+void GraphicsProxyWidget::UpdateGeometry()
+{
+    layout()->updateGeometry();
+    adjustSize();
+    itemSize = this->sizeHint(Qt::PreferredSize);
 }

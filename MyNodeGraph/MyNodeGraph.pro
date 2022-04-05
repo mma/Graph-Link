@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    BaseGraphicsWidget.cpp \
     BaseItem.cpp \
     BaseLayoutItem.cpp \
     GraphicsPixmapItem.cpp \
@@ -27,10 +28,12 @@ SOURCES += \
     MySlot.cpp \
     MyView.cpp \
     NodeLink.cpp \
+    Test.cpp \
     main.cpp \
     Widget.cpp
 
 HEADERS += \
+    BaseGraphicsWidget.h \
     BaseItem.h \
     BaseLayoutItem.h \
     GraphicsPixmapItem.h \
@@ -42,6 +45,7 @@ HEADERS += \
     MySlot.h \
     MyView.h \
     NodeLink.h \
+    Test.h \
     Widget.h
 
 FORMS += \

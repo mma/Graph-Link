@@ -1,5 +1,5 @@
 ﻿#include "GraphicsPixmapTitleItem.h"
-
+#include <QDebug>
 GraphicsPixmapTitleItem::GraphicsPixmapTitleItem(QGraphicsLayoutItem *parent, bool is) : BaseLayoutItem(parent, is)
 {
     mItem = std::make_shared<QGraphicsSimpleTextItem>();
@@ -15,7 +15,12 @@ GraphicsPixmapTitleItem::~GraphicsPixmapTitleItem()
 
 QRectF GraphicsPixmapTitleItem::boundingRect() const
 {
+//    return BaseLayoutItem::boundingRect();
+    if (isVisible()) {
     return QRectF(0, 0, mItem->boundingRect().width(), mItem->boundingRect().height());
+    } else {
+        return QRectF();
+    }
 }
 
 void GraphicsPixmapTitleItem::setGeometry(const QRectF &rect)

@@ -44,7 +44,7 @@ QSizeF BaseLayoutItem::sizeHint(Qt::SizeHint which, const QSizeF &constraint) co
     switch ( which )
     {
         case Qt::MinimumSize:
-        return QSizeF(10,10);
+        return QSizeF(10, 10);
         case Qt::PreferredSize:
             return this->boundingRect().size();
         case Qt::MaximumSize:

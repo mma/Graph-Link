@@ -10,6 +10,7 @@ public:
     GraphicsProxyWidget(QGraphicsItem *parent = nullptr);
     void setCenterWidget(QWidget * w);
     void setCenterLayout(QGraphicsLayout * layout);
+    void UpdateGeometry();
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value)override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)override;
