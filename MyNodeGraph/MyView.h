@@ -15,6 +15,9 @@ protected:
 
 private:
     std::shared_ptr<MyScene> mScene;
+
+signals:
+    void ZoomScale(QString s);
 };
 
 #endif // MYVIEW_H

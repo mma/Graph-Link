@@ -1,10 +1,10 @@
 ﻿#ifndef GRAPHICSTEXTANDPIXMAPITEM_H
 #define GRAPHICSTEXTANDPIXMAPITEM_H
-#include "GraphicsProxyWidget.h"
 #include <QGraphicsLinearLayout>
 #include "GraphicsPixmapItem.h"
 #include "BaseGraphicsWidget.h"
 #include "GraphicsPixmapTitleItem.h"
+#include "InfosItem.h"
 
 /// 采用QGraphicsLayout布局，但是只能是QGraphicsLayoutItem的子类
 /// 所以先用BaseLayoutItem包装一下QGraphicsPixmapItem和QGraphicsSimpleTextItem
@@ -20,6 +20,7 @@ public:
     MySlot *GetOutAnchor() { return mItem->GetSlot(); }
     virtual QRectF boundingRect()const override;
 //    virtual void setGeometry(const QRectF &rect)override;
+//    void UpdateLayout() { Invalidate(), adjustSize(); }
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -32,10 +33,8 @@ private:
     QGraphicsLinearLayout *mLayout;
     std::shared_ptr<GraphicsPixmapTitleItem> mTItem;
     std::shared_ptr<GraphicsPixmapItem> mItem;
-
+    std::shared_ptr<InfosItem> mInfos;
 signals:
-    void Clicked();
-    void Clicked1();
 };
 
 #endif // GRAPHICSTEXTANDPIXMAPITEM_H

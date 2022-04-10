@@ -4,27 +4,30 @@
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 #include <QTimer>
+#include <QStyleOptionGraphicsItem>
+
 GraphicsTextAndPixmapItem::GraphicsTextAndPixmapItem(bool is, QGraphicsItem *parent) : BaseGraphicsWidget(parent)
 {
-    if (is) {
+//    if (is) {
         setFlag(ItemIsMovable, false);
         setFlag(ItemIsSelectable, false);
-    }
+//    }
     mLayout = new QGraphicsLinearLayout(Qt::Orientation::Vertical);
     mTItem = std::make_shared<GraphicsPixmapTitleItem>();
     mItem = std::make_shared<GraphicsPixmapItem>();
+    mInfos = std::make_shared<InfosItem>();
+    mLayout->setSpacing(0);
     mLayout->addItem(mTItem.get());
     mLayout->addItem(mItem.get());
-//    setCenterLayout(mLayout);
-    mLayout->setSpacing(0);
+    mLayout->addItem(mInfos.get());
     setLayout(mLayout);
     adjustSize();
-    setContentsMargins(0, 0, 0, 0);
 }
 
 GraphicsTextAndPixmapItem::~GraphicsTextAndPixmapItem()
 {
     setLayout(nullptr);
+    qDebug() << "delete le ";
 }
 
 QRectF GraphicsTextAndPixmapItem::boundingRect() const
@@ -34,11 +37,12 @@ QRectF GraphicsTextAndPixmapItem::boundingRect() const
 
 void GraphicsTextAndPixmapItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPen p = painter->pen();
-    p.setColor(Qt::red);
-    painter->setPen(p);
-    painter->drawRect(rect());
-    BaseGraphicsWidget::paint(painter, option, widget);
+    painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing | QPainter::SmoothPixmapTransform);
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(QColor(58,139,243));
+    if (option->state.testFlag(QStyle::State_MouseOver)) {
+        painter->drawRoundedRect(boundingRect(), 10, 10);
+    }
 }
 
 QVariant GraphicsTextAndPixmapItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
@@ -47,15 +51,8 @@ QVariant GraphicsTextAndPixmapItem::itemChange(QGraphicsItem::GraphicsItemChange
         static_cast<MyScene *>(scene())->Update();
     }
     return BaseGraphicsWidget::itemChange(change, value);
-//        return QGraphicsItem::itemChange(change, value);
 }
 
 void GraphicsTextAndPixmapItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (event->button() == Qt::MouseButton::LeftButton) {
-        Clicked();
-    }
-//    if (event->button() == Qt::MouseButton::RightButton) {
-//        Clicked1();
-//    }
 }

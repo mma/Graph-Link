@@ -14,7 +14,7 @@ QPointF MySlot::GetAnchor()
 
 QRectF MySlot::boundingRect() const
 {
-    return QRectF(0, 0, 10, 10);
+    return QRectF(0, 0, 2, 2);
 }
 
 void MySlot::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

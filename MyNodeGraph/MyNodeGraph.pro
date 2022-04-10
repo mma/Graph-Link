@@ -17,35 +17,33 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     BaseGraphicsWidget.cpp \
-    BaseItem.cpp \
     BaseLayoutItem.cpp \
+    ComposeWidget.cpp \
+    FlagNameItem.cpp \
     GraphicsPixmapItem.cpp \
     GraphicsPixmapTitleItem.cpp \
-    GraphicsProxyWidget.cpp \
     GraphicsTextAndPixmapItem.cpp \
-    MyGroupBox.cpp \
+    InfosItem.cpp \
     MyScene.cpp \
     MySlot.cpp \
     MyView.cpp \
     NodeLink.cpp \
-    Test.cpp \
     main.cpp \
     Widget.cpp
 
 HEADERS += \
     BaseGraphicsWidget.h \
-    BaseItem.h \
     BaseLayoutItem.h \
+    ComposeWidget.h \
+    FlagNameItem.h \
     GraphicsPixmapItem.h \
     GraphicsPixmapTitleItem.h \
-    GraphicsProxyWidget.h \
     GraphicsTextAndPixmapItem.h \
-    MyGroupBox.h \
+    InfosItem.h \
     MyScene.h \
     MySlot.h \
     MyView.h \
     NodeLink.h \
-    Test.h \
     Widget.h
 
 FORMS += \

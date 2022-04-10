@@ -16,15 +16,13 @@ public:
 protected:
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)override;
     QSizeF sizeHint(Qt::SizeHint which, const QSizeF &constraint = QSizeF()) const override;
-
+    QSizeF mItemSize;
 //    void hoverEnterEvent(QGraphicsSceneHoverEvent *e)override;
 //    void hoverLeaveEvent(QGraphicsSceneHoverEvent *e) override;
 //    void mousePressEvent(QGraphicsSceneMouseEvent *event)override;
 //    void hoverMoveEvent(QGraphicsSceneHoverEvent* event)override;
 //    void mouseMoveEvent(QGraphicsSceneMouseEvent* event)override;
 //    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event)override;
-
-    QSizeF mItemSize;
 };
 
 #endif // BASELAYOUTITEM_H

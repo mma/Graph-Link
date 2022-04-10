@@ -17,8 +17,10 @@ void MyScene::AddLink(MySlot *s1, MySlot *s2)
 
 void MyScene::Update()
 {
-    for (int i = 0; i < links.size(); i++) {
-        links[i]->updateShape();
+    if (mCanUpdate) {
+        for (int i = 0; i < links.size(); i++) {
+            links[i]->updateShape();
+        }
     }
 }
 

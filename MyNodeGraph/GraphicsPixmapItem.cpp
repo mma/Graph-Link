@@ -25,9 +25,10 @@ GraphicsPixmapItem::~GraphicsPixmapItem()
 {
 
 }
-
+#include <qdebug.h>
 QRectF GraphicsPixmapItem::boundingRect() const
 {
+    //qDebug() << "???";
 //    return BaseLayoutItem::boundingRect();
     if (isVisible()) {
     return QRectF(0, 0, mItem->boundingRect().width(), mItem->boundingRect().height());
@@ -40,4 +41,9 @@ void GraphicsPixmapItem::setGeometry(const QRectF &rect)
 {
     BaseLayoutItem::setGeometry(rect);
     mOut->setPos(rect.width() / 2, rect.height());
+}
+
+QVariant GraphicsPixmapItem::itemChange(GraphicsItemChange change, const QVariant& value)
+{
+    return BaseLayoutItem::itemChange(change, value);
 }

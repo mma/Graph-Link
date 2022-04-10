@@ -26,5 +26,10 @@ QRectF GraphicsPixmapTitleItem::boundingRect() const
 void GraphicsPixmapTitleItem::setGeometry(const QRectF &rect)
 {
     BaseLayoutItem::setGeometry(rect);
-    mIn->setPos(rect.width() / 2, 0);
+    mIn->setPos(rect.width() / 2 - mIn->rect().width() / 2, mIn->rect().height() / 2);
+}
+
+QVariant GraphicsPixmapTitleItem::itemChange(GraphicsItemChange change, const QVariant& value)
+{
+    return BaseLayoutItem::itemChange(change, value);
 }

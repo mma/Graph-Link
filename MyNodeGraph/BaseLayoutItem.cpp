@@ -6,6 +6,7 @@ BaseLayoutItem::BaseLayoutItem(QGraphicsLayoutItem *parent, bool isLayout) : QGr
     mItemSize(250, 250)
 {
     setGraphicsItem(this);
+    setFlag(QGraphicsItem::ItemSendsScenePositionChanges);//图形项可发送位置变化信号
 }
 
 BaseLayoutItem::~BaseLayoutItem()
@@ -44,7 +45,7 @@ QSizeF BaseLayoutItem::sizeHint(Qt::SizeHint which, const QSizeF &constraint) co
     switch ( which )
     {
         case Qt::MinimumSize:
-        return QSizeF(10, 10);
+        return QSizeF(0, 0);
         case Qt::PreferredSize:
             return this->boundingRect().size();
         case Qt::MaximumSize:

@@ -12,6 +12,7 @@ public:
     virtual QRectF boundingRect()const override;
     virtual void setGeometry(const QRectF &rect)override;
     MySlot *GetAnchor() { return mIn.get(); };
+    QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 private:
     std::shared_ptr<QGraphicsSimpleTextItem> mItem;
     std::shared_ptr<MySlot> mIn;

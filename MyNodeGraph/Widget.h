@@ -6,7 +6,8 @@
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
-
+class ComposeWidget;
+class QGraphicsLayoutItem;
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -14,9 +15,11 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
-    void Test();
+    void TestFunc();
+    void showEvent(QShowEvent* e) override;
 
 private:
     Ui::Widget *ui;
+    std::shared_ptr<ComposeWidget> mCompose;
 };
 #endif // WIDGET_H

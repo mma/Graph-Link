@@ -22,6 +22,7 @@ void MyView::wheelEvent(QWheelEvent *event)
         qreal factor = transform().scale(scaleFactor, scaleFactor).mapRect(QRectF(0, 0, 1, 1)).width();
         if(0.05 < factor && factor < 10) {//Zoom factor limitation
             scale(scaleFactor, scaleFactor);
+            ZoomScale(QString::number(factor * 100) + "%");
         }
     }
 }
