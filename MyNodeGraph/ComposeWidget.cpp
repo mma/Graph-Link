@@ -35,38 +35,12 @@ ComposeWidget::ComposeWidget(QGraphicsItem *parent, Qt::WindowFlags wFlags) : Ba
     mItems.push_back(mtap2.get());
     mItems.push_back(mtap3.get());
 
-    mMenu = std::make_shared<QMenu>();
-    mSubMenu = std::make_shared<QMenu>("new");
-    QAction *ac1 = new QAction("close");
-    QAction *ac2 = new QAction("open");
-    QAction *ac3 = new QAction("show in editor");
-    QAction *ac4 = new QAction("new pixmap");
-    QAction *ac5 = new QAction("new text");
-    mActions.push_back(ac1);
-    mActions.push_back(ac2);
-    mActions.push_back(ac3);
-    mActions.push_back(ac4);
-    mActions.push_back(ac5);
-    mSubMenu->addAction(ac4);
-    mSubMenu->addAction(ac5);
-    mMenu->addMenu(mSubMenu.get());
-    mMenu->addSection("my");
-    mMenu->addAction(ac1);
-    mMenu->addAction(ac2);
-    mMenu->addAction(ac3);
-    mMenu->setWindowFlag(Qt::FramelessWindowHint);
-    mMenu->setAttribute(Qt::WA_TranslucentBackground);
-    mMenu->setAttribute(Qt::WA_StyledBackground);
-    mSubMenu->setWindowFlag(Qt::FramelessWindowHint);
-    mSubMenu->setAttribute(Qt::WA_TranslucentBackground);
-    mSubMenu->setAttribute(Qt::WA_StyledBackground);
+    mMenu = std::make_shared<MyMenu>();
 }
 
 ComposeWidget::~ComposeWidget()
 {
-    for (QAction *ac : mActions) {
-        delete ac;
-    }
+
 }
 /// 对比这两个信号的方式
 /// 一个是正常使用Q_PROPERTY ，一个绑定的valueChanged信号

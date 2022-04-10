@@ -6,7 +6,7 @@ QString qss = "QMenu {\
      background-color : rgb(255,255,255);\
      padding:5px;\
      border : 1px solid gray;\
-     border-radius:10px;\
+     border-radius:0px;\
     }\
     QMenu::item {\
         font-size:10pt;\

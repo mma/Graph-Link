@@ -24,6 +24,7 @@ SOURCES += \
     GraphicsPixmapTitleItem.cpp \
     GraphicsTextAndPixmapItem.cpp \
     InfosItem.cpp \
+    MyMenu.cpp \
     MyScene.cpp \
     MySlot.cpp \
     MyView.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     GraphicsPixmapTitleItem.h \
     GraphicsTextAndPixmapItem.h \
     InfosItem.h \
+    MyMenu.h \
     MyScene.h \
     MySlot.h \
     MyView.h \

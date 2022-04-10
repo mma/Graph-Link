@@ -6,7 +6,7 @@
 #include "GraphicsTextAndPixmapItem.h"
 #include "FlagNameItem.h"
 #include <QAction>
-#include <QMenu>
+#include "MyMenu.h"
 
 class ComposeWidget : public BaseGraphicsWidget
 {
@@ -37,9 +37,7 @@ private:
 
     std::shared_ptr<QPropertyAnimation> mAnimation;
 
-    std::shared_ptr<QMenu> mMenu;
-    std::shared_ptr<QMenu> mSubMenu;
-    QVector<QAction *> mActions;
+    std::shared_ptr<MyMenu> mMenu;
     bool mZoomIn = false;
     QSizeF rs;
 
