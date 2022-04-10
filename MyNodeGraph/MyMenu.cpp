@@ -1,5 +1,6 @@
 ﻿#include "MyMenu.h"
 #include <QPainter>
+#include <QGraphicsDropShadowEffect>
 
 MyMenu::MyMenu(QWidget *parent) : QMenu(parent)
 {
@@ -9,6 +10,7 @@ MyMenu::MyMenu(QWidget *parent) : QMenu(parent)
     QAction *ac2 = new QAction("save");
     QAction *ac3 = new QAction("save as another view");
     addMenu(mSubMenu.get());
+    addSeparator();
     mActions.push_back(ac);
     mActions.push_back(ac1);
     mActions.push_back(ac2);
@@ -17,18 +19,28 @@ MyMenu::MyMenu(QWidget *parent) : QMenu(parent)
     addAction(ac1);
     addAction(ac2);
     addAction(ac3);
-    setWindowFlag(Qt::FramelessWindowHint);
+    // pop menu的基本属性，不加这个menu点其他位置不消失
+    // framelesswindowhint 如果设置圆角需要这个，让他变成无边框， 显示圆角
+    // nodropshawWindowhint 不显示阴影，因为默认右侧与下侧有阴影，所以导致右下角不显示圆角
+    setWindowFlags(Qt::Popup | Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint);
+    // 设置背景透明，让四个角只显示圆角，不显示其他黑的部分
     setAttribute(Qt::WA_TranslucentBackground);
+    mSubMenu->setWindowFlags(Qt::Popup | Qt::FramelessWindowHint | Qt::NoDropShadowWindowHint);
+    mSubMenu->setAttribute(Qt::WA_TranslucentBackground);
+    for (int i = 0; i < 5; ++i) {
+        QWidgetAction *wa = new QWidgetAction(mSubMenu.get());
+        MenuWidget *mw = new MenuWidget();
+        mMenuWidgets.push_back(mw);
+        wa->setDefaultWidget(mw);
+        mSubMenu->addAction(wa);
+    }
+    // 如果需要自己加阴影， 用QGraphicsDropShadowEffect， 需要用qss 设置QMenu的margin 比0大， 否则没位置显示阴影
 
-    QWidgetAction *wa = new QWidgetAction(mSubMenu.get());
-    MenuWidget *mw = new MenuWidget();
-    mMenuWidgets.push_back(mw);
-    wa->setDefaultWidget(mw);
-    mSubMenu->addAction(wa);
-//    QMenu *ss = new QMenu("wuwuwu");
-//    QAction *w = new QAction("wuwuw");
-//    ss->addAction(w);
-//    wa->setMenu(ss);
+//    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
+//    shadow->setOffset(0, 0);
+//    shadow->setColor(QColor("#444444"));
+//    shadow->setBlurRadius(10);
+//    setGraphicsEffect(shadow);
 }
 
 MyMenu::MyMenu(const QString &title, QWidget *parent) : MyMenu(parent)
