@@ -90,7 +90,7 @@ void MenuWidget::paintEvent(QPaintEvent *event)
     QWidget::paintEvent(event);
 }
 #include <QDebug>
-void MenuWidget::enterEvent(QEvent *event)
+void MenuWidget::enterEvent(QEnterEvent *event)
 {
     qDebug() << "enter";
     mIsActived = true;
